@@ -66,10 +66,10 @@ export function PredictionView() {
   if (loading) {
     return (
       <Card>
-        <CardContent className="p-8">
-          <div className="flex items-center justify-center">
-            <CloudSnow size={48} className="animate-spin text-primary" />
-            <span className="ml-4 text-lg">Loading forecast...</span>
+        <CardContent className="p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            <CloudSnow size={32} className="animate-spin text-primary sm:w-12 sm:h-12" />
+            <span className="text-base sm:text-lg">Loading forecast...</span>
           </div>
         </CardContent>
       </Card>
@@ -91,28 +91,28 @@ export function PredictionView() {
   const communityAvg = getCommunityAverage()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <Card className="text-center">
-        <CardHeader>
-          <CardTitle className="text-2xl">Tomorrow's Snow Day Probability</CardTitle>
-          <p className="text-muted-foreground">Based on weather conditions for Rockford, MI</p>
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl sm:text-2xl">Tomorrow's Snow Day Probability</CardTitle>
+          <p className="text-muted-foreground text-sm sm:text-base">Based on weather conditions for Rockford, MI</p>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-4">
-            <div className="text-6xl font-bold text-primary">{weather.modelProbability}%</div>
-            <Badge className={`${verdict.color} text-white text-lg px-4 py-2`}>
+        <CardContent className="space-y-4 sm:space-y-6">
+          <div className="space-y-3 sm:space-y-4">
+            <div className="text-4xl sm:text-6xl font-bold text-primary">{weather.modelProbability}%</div>
+            <Badge className={`${verdict.color} text-white text-base sm:text-lg px-3 sm:px-4 py-1.5 sm:py-2`}>
               {verdict.text}
             </Badge>
-            <Progress value={weather.modelProbability} className="h-3" />
+            <Progress value={weather.modelProbability} className="h-2 sm:h-3" />
           </div>
 
           {communityAvg !== null && (
             <>
               <Separator />
               <div className="space-y-2">
-                <h3 className="text-lg font-semibold">Community Consensus</h3>
-                <div className="text-3xl font-bold text-accent">{communityAvg}%</div>
-                <p className="text-sm text-muted-foreground">
+                <h3 className="text-base sm:text-lg font-semibold">Community Consensus</h3>
+                <div className="text-2xl sm:text-3xl font-bold text-accent">{communityAvg}%</div>
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   Based on {communityVotes?.length || 0} community votes
                 </p>
               </div>
@@ -121,42 +121,42 @@ export function PredictionView() {
         </CardContent>
       </Card>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="flex flex-col gap-4 sm:gap-6 lg:grid lg:grid-cols-2">
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CloudSnow size={20} />
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+              <CloudSnow size={18} className="sm:w-5 sm:h-5" />
               Weather Drivers
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div className="flex items-center gap-3">
-                <CloudSnow size={24} className="text-primary" />
+                <CloudSnow size={20} className="text-primary sm:w-6 sm:h-6" />
                 <div>
-                  <p className="font-medium">{weather.snowfall}"</p>
-                  <p className="text-sm text-muted-foreground">Expected snow</p>
+                  <p className="font-medium text-sm sm:text-base">{weather.snowfall}"</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Expected snow</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Thermometer size={24} className="text-blue-500" />
+                <Thermometer size={20} className="text-blue-500 sm:w-6 sm:h-6" />
                 <div>
-                  <p className="font-medium">{weather.temperature}°F</p>
-                  <p className="text-sm text-muted-foreground">Temperature</p>
+                  <p className="font-medium text-sm sm:text-base">{weather.temperature}°F</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Temperature</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Wind size={24} className="text-slate-500" />
+                <Wind size={20} className="text-slate-500 sm:w-6 sm:h-6" />
                 <div>
-                  <p className="font-medium">{weather.windSpeed} mph</p>
-                  <p className="text-sm text-muted-foreground">Wind speed</p>
+                  <p className="font-medium text-sm sm:text-base">{weather.windSpeed} mph</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Wind speed</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Eye size={24} className="text-gray-500" />
+                <Eye size={20} className="text-gray-500 sm:w-6 sm:h-6" />
                 <div>
-                  <p className="font-medium">{weather.visibility} mi</p>
-                  <p className="text-sm text-muted-foreground">Visibility</p>
+                  <p className="font-medium text-sm sm:text-base">{weather.visibility} mi</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Visibility</p>
                 </div>
               </div>
             </div>
@@ -176,7 +176,7 @@ export function PredictionView() {
               </div>
             )}
 
-            <p className="text-xs text-muted-foreground mt-4">
+            <p className="text-xs text-muted-foreground mt-3 sm:mt-4">
               Last updated: {new Date(weather.lastUpdated).toLocaleString()}
             </p>
           </CardContent>
