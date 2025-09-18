@@ -292,8 +292,4 @@ export function AccuracyView() {
       </Card>
     </div>
   )
-      
-      <WeatherThemeDemo />
-    </div>
-  )
 }
