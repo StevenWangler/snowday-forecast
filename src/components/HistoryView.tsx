@@ -2,9 +2,7 @@ import { useKV } from '@github/spark/hooks'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { CloudSnow, CalendarBlank, Target, TrendUp, Users } from '@phosphor-icons/react'
+import { CloudSnow, CalendarBlank, Target, Users } from '@phosphor-icons/react'
 import { useState } from 'react'
 
 interface HistoricalEvent {
