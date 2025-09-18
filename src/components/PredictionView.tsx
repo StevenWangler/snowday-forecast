@@ -9,6 +9,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { ThumbsUp, ThumbsDown, CloudSnow, Thermometer, Wind, Eye, Warning } from '@phosphor-icons/react'
 import { VotingWidget } from '@/components/VotingWidget'
 import { WeatherService } from '@/lib/weather'
+import { useWeatherTheme } from '@/hooks/useWeatherTheme'
+import { WeatherThemeIndicator } from '@/components/WeatherThemeIndicator'
 import { toast } from 'sonner'
 
 interface WeatherData {
@@ -26,6 +28,9 @@ export function PredictionView() {
   const [loading, setLoading] = useState(true)
   const [userVote, setUserVote] = useKV<{type: 'probability' | 'thumbs', value: number} | null>('today-vote', null)
   const [communityVotes, setCommunityVotes] = useKV<Array<{type: 'probability' | 'thumbs', value: number, timestamp: number}>>('community-votes', [])
+  
+  // Use weather theme hook
+  const { updateWeatherConditions, getCurrentTheme } = useWeatherTheme()
 
   useEffect(() => {
     loadWeatherData()
@@ -36,6 +41,9 @@ export function PredictionView() {
       setLoading(true)
       const data = await WeatherService.getCurrentForecast()
       setWeather(data)
+      
+      // Update weather theme based on conditions
+      updateWeatherConditions(data.snowfall, data.windSpeed, data.visibility)
     } catch (error) {
       toast.error('Failed to load weather data')
       console.error(error)
@@ -62,6 +70,8 @@ export function PredictionView() {
     const total = communityVotes.reduce((sum, vote) => sum + vote.value, 0)
     return Math.round(total / communityVotes.length)
   }
+
+  const currentTheme = getCurrentTheme()
 
   if (loading) {
     return (
@@ -92,6 +102,11 @@ export function PredictionView() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
+      {/* Weather theme indicator */}
+      <div className="text-center">
+        <WeatherThemeIndicator />
+      </div>
+      
       <Card className="text-center">
         <CardHeader className="pb-4">
           <CardTitle className="text-xl sm:text-2xl">Tomorrow's Snow Day Probability</CardTitle>

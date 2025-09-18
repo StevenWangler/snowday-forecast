@@ -6,6 +6,7 @@ import { Separator } from '@/components/ui/separator'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts'
 import { Target, TrendUp, TrendDown, Trophy, ArrowsClockwise } from '@phosphor-icons/react'
 
+import { WeatherThemeDemo } from '@/components/WeatherThemeDemo'
 interface AccuracyRecord {
   date: string
   modelPrediction: number
@@ -289,6 +290,10 @@ export function AccuracyView() {
           </div>
         </CardContent>
       </Card>
+    </div>
+  )
+      
+      <WeatherThemeDemo />
     </div>
   )
 }

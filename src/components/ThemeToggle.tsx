@@ -3,13 +3,16 @@ import {
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
-  DropdownMenuTrigger 
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel
 } from '@/components/ui/dropdown-menu'
-import { Sun, Moon, Monitor } from '@phosphor-icons/react'
-import { useTheme } from '@/hooks/use-theme'
+import { Sun, Moon, CloudSnow, Snowflake } from '@phosphor-icons/react'
+import { useWeatherTheme } from '@/hooks/useWeatherTheme'
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { isDarkMode, toggleDarkMode, getCurrentTheme } = useWeatherTheme()
+  const currentTheme = getCurrentTheme()
 
   return (
     <DropdownMenu>
@@ -20,21 +23,25 @@ export function ThemeToggle() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')} className="flex items-center gap-2">
-          <Sun className="h-4 w-4" />
-          Light
-          {theme === 'light' && <span className="ml-auto text-xs">✓</span>}
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuLabel className="flex items-center gap-2">
+          <CloudSnow className="h-4 w-4" />
+          Weather Theme
+        </DropdownMenuLabel>
+        <DropdownMenuItem disabled className="text-xs text-muted-foreground">
+          Current: {currentTheme?.name || 'Clear Skies'}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')} className="flex items-center gap-2">
-          <Moon className="h-4 w-4" />
-          Dark
-          {theme === 'dark' && <span className="ml-auto text-xs">✓</span>}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={toggleDarkMode} className="flex items-center gap-2">
+          {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          {isDarkMode && <span className="ml-auto text-xs">🌙</span>}
+          {!isDarkMode && <span className="ml-auto text-xs">☀️</span>}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')} className="flex items-center gap-2">
-          <Monitor className="h-4 w-4" />
-          System
-          {theme === 'system' && <span className="ml-auto text-xs">✓</span>}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem disabled className="text-xs text-muted-foreground justify-center">
+          <Snowflake className="h-3 w-3 mr-1" />
+          Colors adapt to snow conditions
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

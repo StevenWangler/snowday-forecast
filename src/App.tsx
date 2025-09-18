@@ -15,7 +15,7 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background transition-colors">
       <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 max-w-6xl">
         <header className="text-center mb-6 sm:mb-8 relative">
-          {/* Theme toggle positioned in top right */}
+          {/* Weather theme toggle positioned in top right */}
           <div className="absolute top-0 right-0">
             <ThemeToggle />
           </div>
